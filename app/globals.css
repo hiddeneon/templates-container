@@ -40,3 +40,17 @@ a {
     color-scheme: dark;
   }
 }
+
+.text-container {
+  border: white 1px solid;
+  font-size: 30px;
+}
+
+.temp-text-container {
+  transition: .2s;
+}
+
+.temp-text-container:hover {
+  cursor: pointer;
+  background-color: green;
+}
