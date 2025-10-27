@@ -48,9 +48,50 @@ a {
 
 .temp-text-container {
   transition: .2s;
+  width: min(90vw, 800px);
+  height: max(30vh, 200px);
+  min-height: 150px;
+  max-height: 60vh;
+  padding: clamp(12px, 2vw, 24px);
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 1.5;
+  resize: both;
+  border: 2px solid #ccc;
+  border-radius: clamp(6px, 1vw, 12px);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  box-sizing: border-box;
 }
 
 .temp-text-container:hover {
   cursor: pointer;
   background-color: green;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .temp-text-container {
+    width: 95vw;
+    height: 40vh;
+    font-size: 16px;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .temp-text-container {
+    width: 98vw;
+    height: 35vh;
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 6px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1440px) {
+  .temp-text-container {
+    width: min(70vw, 1000px);
+    height: max(25vh, 250px);
+    font-size: 18px;
+  }
 }
