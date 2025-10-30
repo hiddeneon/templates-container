@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import  styled  from '@emotion/styled';
 
 interface TempContainerProps {
+  id: number;
   name: string;
   content: string;
 }
 
-export default function TempContainer({ name, content }: TempContainerProps) {
+export default function TempContainer({ id, name, content }: TempContainerProps) {
 
   const Button = styled.button<{ isEditing: boolean }>`
   padding: 32px;
@@ -29,7 +30,7 @@ export default function TempContainer({ name, content }: TempContainerProps) {
     const [isEditing, setIsEditing] = useState(false);
 
     const handleCopyClick = async () => {
-      const tempElem = document.getElementById('text-area');
+      const tempElem = document.getElementById(`text-area-${id}`);
 
       if (tempElem?.hasAttribute('readOnly')) {
         try {
@@ -50,17 +51,26 @@ export default function TempContainer({ name, content }: TempContainerProps) {
     };
 
     function toggleEditor(): void {
-      const tempElem = document.getElementById('text-area');
+      const tempElem = document.getElementById(`text-area-${id}`);
 
       // const EBtn = document.getElementById('edit-button');
       tempElem?.toggleAttribute('readOnly');
       if (!tempElem?.hasAttribute('readOnly')) {
         setEditBtn('done');
         setIsEditing(true);
+        console.log(`editing mode on ${tempElem?.hasAttribute('readOnly')}`);
       } else {
         setEditBtn('edit');
         setIsEditing(false);
+        console.log(`readonly mode on ${tempElem?.hasAttribute('readOnly')}`);
       }
+    }
+
+    function deleteTemp(): void {
+        console.log(`Deleting template with ID: ${id}`);
+        // You can now use the id prop in your function!
+        // For example, you could call a parent function to delete this template
+        // onDelete?.(id);
     }
 
     return (
@@ -75,7 +85,7 @@ export default function TempContainer({ name, content }: TempContainerProps) {
         <div className="text-container">
           <textarea
             value={text}
-            id="text-area"
+            id={`text-area-${id}`}
             onChange={(e) => setText(e.target.value)}
             className="temp-text-container"
             onClick={handleCopyClick}
