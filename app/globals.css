@@ -1,6 +1,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --border-radius: 1.2rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,6 +25,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -42,7 +44,7 @@ a {
 }
 
 .text-container {
-  border: white 1px solid;
+  /* border: white 1px solid; */
   font-size: 30px;
 }
 
@@ -56,21 +58,28 @@ a {
   font-size: clamp(14px, 1.2vw, 18px);
   line-height: 1.5;
   resize: both;
-  border: 2px solid #ccc;
-  border-radius: clamp(6px, 1vw, 12px);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   box-sizing: border-box;
+  overflow: hidden; /* removes scrollbar from template textarea */
+  resize: none; /* removes resize tool */
 }
 
 .temp-text-container:hover {
   cursor: pointer;
-  background-color: green;
+  background-color: rgb(77, 83, 102);
+  overflow: auto;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .temp-text-container {
-    width: 95vw;
+    width: 25vw;
     height: 40vh;
     font-size: 16px;
     padding: 16px;
@@ -79,7 +88,7 @@ a {
 
 @media (max-width: 480px) {
   .temp-text-container {
-    width: 98vw;
+    width: 28vw;
     height: 35vh;
     font-size: 14px;
     padding: 12px;
@@ -90,8 +99,125 @@ a {
 /* Large screens */
 @media (min-width: 1440px) {
   .temp-text-container {
-    width: min(70vw, 1000px);
+    width: 30vw;
     height: max(25vh, 250px);
     font-size: 18px;
   }
+}
+
+/* Create form styles */
+.create-form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: var(--background);
+}
+
+.create-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--foreground);
+}
+
+.create-form input,
+.create-form select,
+.create-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: var(--background);
+  color: var(--foreground);
+  box-sizing: border-box;
+}
+
+.create-form textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+/* Add button styles */
+.add-btn-container {
+  margin-top: 16px;
+}
+
+.add-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: #45a049;
+}
+
+.add-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Message styles */
+.message {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.toggle-form-btn {
+  font-size: 2rem;
+  background-color: rgb(91, 91, 81);
+  width: 10vw;
+  height: 10vh;
+  border-radius: .4rem;
+}
+
+.toggle-form-btn:hover {
+  background-color: #375153;
+  cursor: pointer;
+}
+
+.toggle-form-btn:active {
+  background-color: white;
+  color: black;
+}
+
+.title-temp-box {
+  background-color: #375153;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.buttons-interface {
+  border: yellow solid 2px;
+}
+
+.temp-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 25px;
+  row-gap: 25px;
 }

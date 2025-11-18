@@ -3,15 +3,20 @@
 import React, { useState } from "react";
 import  styled  from '@emotion/styled';
 
+import { Template } from "../data/types";
+
 interface TempContainerProps {
   id: number;
+  category: string;
   name: string;
   content: string;
+  onDelete?: (id: number) => void;
+  onUpdate?: (template: Template) => void;
 }
 
-export default function TempContainer({ id, name, content }: TempContainerProps) {
+export default function TempContainer({ id, category, name, content, onDelete, onUpdate }: TempContainerProps) {
 
-  const Button = styled.button<{ isEditing: boolean }>`
+  const EditButton = styled.button<{ isEditing: boolean }>`
   padding: 32px;
   background-color: ${props => props.isEditing ? 'red' : 'hotpink'};
   font-size: 24px;
@@ -24,7 +29,22 @@ export default function TempContainer({ id, name, content }: TempContainerProps)
     cursor: pointer;
   }
 `
+const DeleteButton = styled.button`
+  padding: 32px;
+  background-color: red;
+  font-size: 24px;
+  border-radius: 4px;
+  color: black;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  &:hover {
+    color: white;
+    cursor: pointer;
+  }
+`
+
     const [text, setText] = useState(content);
+    const [nameText, setNameText] = useState(name);
 
     const [editBtn, setEditBtn] = useState('edit');
     const [isEditing, setIsEditing] = useState(false);
@@ -50,27 +70,79 @@ export default function TempContainer({ id, name, content }: TempContainerProps)
       }
     };
 
-    function toggleEditor(): void {
+    async function toggleEditor(): Promise<void> {
       const tempElem = document.getElementById(`text-area-${id}`);
 
-      // const EBtn = document.getElementById('edit-button');
-      tempElem?.toggleAttribute('readOnly');
       if (!tempElem?.hasAttribute('readOnly')) {
-        setEditBtn('done');
-        setIsEditing(true);
-        console.log(`editing mode on ${tempElem?.hasAttribute('readOnly')}`);
-      } else {
+        // User clicked "done" - save changes
+        if (text !== content || nameText !== name) {
+          try {
+            const { editTemplate } = await import('../lib/actions');
+            const result = await editTemplate(id, {
+              name: nameText,
+              content: text,
+              category: 'General' // You might want to make this editable too
+            });
+            
+            if (result.success && result.template) {
+              if (onUpdate) {
+                onUpdate(result.template);
+              }
+              console.log('Template updated successfully');
+            } else {
+              console.error('Failed to update template:', result.message);
+              // Revert changes if update failed
+              setText(content);
+              setNameText(name);
+            }
+          } catch (error) {
+            console.error('Error updating template:', error);
+            // Revert changes if update failed
+            setText(content);
+            setNameText(name);
+          }
+        }
+        
+        // Switch to readonly mode
+        tempElem?.setAttribute('readOnly', 'true');
         setEditBtn('edit');
         setIsEditing(false);
         console.log(`readonly mode on ${tempElem?.hasAttribute('readOnly')}`);
+      } else {
+        // User clicked "edit" - enable editing
+        tempElem?.removeAttribute('readOnly');
+        setEditBtn('done');
+        setIsEditing(true);
+        console.log(`editing mode on ${tempElem?.hasAttribute('readOnly')}`);
       }
     }
 
-    function deleteTemp(): void {
-        console.log(`Deleting template with ID: ${id}`);
-        // You can now use the id prop in your function!
-        // For example, you could call a parent function to delete this template
-        // onDelete?.(id);
+    async function deleteTemp(): Promise<void> {
+        // Show confirmation dialog
+        const confirmed = window.confirm(`Are you sure you want to delete "${nameText}"?`);
+        
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            const { deleteTemplate } = await import('../lib/actions');
+            const result = await deleteTemplate(id);
+            
+            if (result.success) {
+                console.log('Template deleted successfully');
+                // Call the parent's onDelete callback to remove from UI
+                if (onDelete) {
+                    onDelete(id);
+                }
+            } else {
+                console.error('Failed to delete template:', result.message);
+                alert('Failed to delete template. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error deleting template:', error);
+            alert('An error occurred while deleting the template.');
+        }
     }
 
     return (
@@ -79,9 +151,23 @@ export default function TempContainer({ id, name, content }: TempContainerProps)
           color: "white",
           textAlign: "center",
           border: "white 2px solid",
+          borderRadius: "1.2rem"
         }}
       >
-        <h1>{name}</h1>
+        <div className="title-temp-box">
+        {isEditing ? (
+          <input
+            type="text"
+            value={nameText}
+            onChange={(e) => setNameText(e.target.value)}
+            className="template-name-input"
+            placeholder="Template name"
+          />
+        ) : (
+          <h1>{nameText}</h1>
+        )}
+        <span>{category}</span>
+        </div>
         <div className="text-container">
           <textarea
             value={text}
@@ -91,9 +177,12 @@ export default function TempContainer({ id, name, content }: TempContainerProps)
             onClick={handleCopyClick}
             readOnly
           ></textarea>
-          <Button className="edit-btn" id="edit-button" onClick={toggleEditor} isEditing={isEditing}>
-            {editBtn}
-          </Button>
+          <section className="buttons-interface">
+            <DeleteButton onClick={deleteTemp}>delete</DeleteButton>
+            <EditButton className="edit-btn" id="edit-button" onClick={toggleEditor} isEditing={isEditing}>
+              {editBtn}
+            </EditButton>
+          </section>
         </div>
       </div>
     );
