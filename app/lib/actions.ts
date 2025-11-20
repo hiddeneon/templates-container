@@ -40,20 +40,20 @@ export async function insertTemplate(prevState: any, formData: FormData) {
             RETURNING id, name, category, content
         `;
         
-        console.log('Template deleted successfully');
+        console.log('Template created successfully');
         
         // Revalidate the home page to remove the deleted template
         revalidatePath('/');
         
         return {
-            message: 'Template deleted successfully',
+            message: 'Template created successfully',
             success: true,
             template: result[0]
         };
     } catch (error) {
-        console.error('Failed to delete template:', error);
+        console.error('Failed to create template:', error);
         return {
-            message: 'Failed to delete template',
+            message: 'Failed to create template',
             success: false
         };
     }
@@ -137,6 +137,7 @@ export async function deleteTemplate(templateId: number) {
         }
 
         console.log('Template deleted successfully');
+
         return {
             message: 'Template deleted successfully',
             success: true,
