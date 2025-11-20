@@ -4,6 +4,10 @@ import { fetchTemplates } from "./lib/data";
 import fallbackTemplates from "./data/templates";
 import CreateFormToggle from "./ui/create-form-toggle";
 
+// Force dynamic rendering - prevent static generation
+export const dynamic = 'force-dynamic';
+export const revalidate = 0; // Disable caching
+
 export default async function Home() {
   // Server-side data fetching with fallback
   let templates;

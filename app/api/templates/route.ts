@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchTemplates } from '../../lib/data';
 import { Template } from '../../data/types';
+import { revalidatePath } from 'next/cache';
 import postgres from 'postgres';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
@@ -9,7 +10,14 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 export async function GET() {
   try {
     const templates = await fetchTemplates();
-    return NextResponse.json(templates);
+    const response = NextResponse.json(templates);
+    
+    // Prevent caching for dynamic data
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    
+    return response;
   } catch (error) {
     console.error('Error fetching templates:', error);
     return NextResponse.json({ error: 'Failed to fetch templates' }, { status: 500 });
@@ -27,6 +35,9 @@ export async function POST(request: NextRequest) {
       VALUES (${newTemplate.id}, ${newTemplate.name}, ${newTemplate.category}, ${newTemplate.content})
       RETURNING *
     `;
+    
+    // Revalidate the home page
+    revalidatePath('/');
     
     return NextResponse.json({ success: true, template: result[0] });
   } catch (error) {

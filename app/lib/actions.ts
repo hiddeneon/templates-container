@@ -2,6 +2,7 @@
 
 import { Template } from '../data/types';
 import postgres from 'postgres';
+import { revalidatePath } from 'next/cache';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -39,16 +40,20 @@ export async function insertTemplate(prevState: any, formData: FormData) {
             RETURNING id, name, category, content
         `;
         
-        console.log('Template inserted successfully');
+        console.log('Template deleted successfully');
+        
+        // Revalidate the home page to remove the deleted template
+        revalidatePath('/');
+        
         return {
-            message: 'Template created successfully',
+            message: 'Template deleted successfully',
             success: true,
             template: result[0]
         };
     } catch (error) {
-        console.error('Failed to insert template to the db', error);
+        console.error('Failed to delete template:', error);
         return {
-            message: 'Failed to create template',
+            message: 'Failed to delete template',
             success: false
         };
     }
@@ -88,6 +93,10 @@ export async function editTemplate(templateId: number, updatedData: { name: stri
         }
 
         console.log('Template updated successfully');
+        
+        // Revalidate the home page to show the updated template
+        revalidatePath('/');
+        
         return {
             message: 'Template updated successfully',
             success: true,
