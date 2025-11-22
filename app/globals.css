@@ -211,9 +211,9 @@ a {
   border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
-.buttons-interface {
+/* .buttons-interface {
   border: yellow solid 2px;
-}
+} */
 
 .temp-wrapper {
   display: grid;

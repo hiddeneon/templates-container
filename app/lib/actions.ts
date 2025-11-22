@@ -42,7 +42,7 @@ export async function insertTemplate(prevState: any, formData: FormData) {
         
         console.log('Template created successfully');
         
-        // Revalidate the home page to remove the deleted template
+        // Revalidate the home page to create a template
         revalidatePath('/');
         
         return {
