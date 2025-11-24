@@ -16,7 +16,7 @@ export default function CreateFormToggle() {
         className="toggle-form-btn"
         onClick={toggleForm}
       >
-        {isFormVisible ? '✕ Close' : '+ Add'}
+        {isFormVisible ? '✕' : '+ Add'}
       </button>
       
       {isFormVisible && (

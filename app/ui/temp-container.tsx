@@ -146,14 +146,7 @@ const DeleteButton = styled.button`
     }
 
     return (
-      <div
-        style={{
-          color: "white",
-          textAlign: "center",
-          border: "white 2px solid",
-          borderRadius: "1.2rem"
-        }}
-      >
+      <div className="temp-box">
         <div className="title-temp-box">
         {isEditing ? (
           <input

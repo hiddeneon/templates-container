@@ -1,7 +1,28 @@
+/* Always top right for CreateFormToggle */
+.create-form-toggle {
+  position: fixed;
+  top: 4vh;
+  left: 1vw;
+  z-index: 10;
+}
+
+/* Template box styles */
+
+.temp-box {
+  color: white;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  padding: 12px 0;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --border-radius: 1.2rem;
+  --border-radius: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,7 +40,7 @@ body {
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  /* background: var(--background); */
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,7 +70,7 @@ a {
 }
 
 .temp-text-container {
-  transition: .2s;
+  transition: .25s;
   width: min(90vw, 800px);
   height: max(30vh, 200px);
   min-height: 150px;
@@ -62,11 +83,17 @@ a {
   box-sizing: border-box;
   overflow: hidden; /* removes scrollbar from template textarea */
   resize: none; /* removes resize tool */
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
 }
 
 .temp-text-container:hover {
   cursor: pointer;
-  background-color: rgb(77, 83, 102);
+  background-color: rgb(102, 123, 192, 0.2); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.5); /* Subtle border */
   overflow: auto;
 }
 
@@ -99,7 +126,7 @@ a {
 /* Large screens */
 @media (min-width: 1440px) {
   .temp-text-container {
-    width: 30vw;
+    max-width: 42vw;
     height: max(25vh, 250px);
     font-size: 18px;
   }
@@ -190,25 +217,33 @@ a {
 
 .toggle-form-btn {
   font-size: 2rem;
-  background-color: rgb(91, 91, 81);
-  width: 10vw;
-  height: 10vh;
-  border-radius: .4rem;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  padding: 10px;
+  height: 4rem;
+  width: 8rem;
+  transition: .25s;
 }
 
 .toggle-form-btn:hover {
-  background-color: #375153;
+  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+  backdrop-filter: blur(20px);
   cursor: pointer;
 }
 
-.toggle-form-btn:active {
-  background-color: white;
-  color: black;
-}
-
 .title-temp-box {
-  background-color: #375153;
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  /* background-color: #375153; */
+  background-color: rgba(55, 81, 83, 0.5); /* Semi-transparent background */
+  backdrop-filter: blur(20px); /* Frosted glass effect */
+  /* border: 1px solid rgba(255, 255, 255, 0.2); */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  /* border-radius: var(--border-radius) var(--border-radius) 0 0; */
+  padding: 1rem 0;
+  cursor: default;
+  color: rgb(255, 255, 255, 0.7);
 }
 
 /* .buttons-interface {

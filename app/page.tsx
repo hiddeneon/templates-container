@@ -23,9 +23,7 @@ export default async function Home() {
     <>
       <Aurora />
       <div className={styles.page}>
-        <header className="page-header">
           <CreateFormToggle />
-        </header>
         <main className={styles.main}>
           <TemplatesWrapper initialTemplates={templates} />
         </main>
