@@ -3,6 +3,7 @@ import TemplatesWrapper from "./ui/templates-wrapper";
 import { fetchTemplates } from "./lib/data";
 import fallbackTemplates from "./data/templates";
 import CreateFormToggle from "./ui/create-form-toggle";
+import Aurora from "./ui/background/Aurora";
 
 // Force dynamic rendering - prevent static generation
 export const dynamic = 'force-dynamic';
@@ -19,13 +20,16 @@ export default async function Home() {
   }
 
   return (
-    <div className={styles.page}>
-      <header className="page-header">
-        <CreateFormToggle />
-      </header>
-      <main className={styles.main}>
-        <TemplatesWrapper initialTemplates={templates} />
-      </main>
-    </div>
+    <>
+      <Aurora />
+      <div className={styles.page}>
+        <header className="page-header">
+          <CreateFormToggle />
+        </header>
+        <main className={styles.main}>
+          <TemplatesWrapper initialTemplates={templates} />
+        </main>
+      </div>
+    </>
   );
 }
