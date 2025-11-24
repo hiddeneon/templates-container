@@ -3,7 +3,6 @@
 import { useState } from "react";
 import TempContainer from "./temp-container";
 import { Template } from "../data/types";
-import LiquidGlass from 'liquid-glass-react';
 
 interface TemplatesWrapperProps {
   initialTemplates: Template[];

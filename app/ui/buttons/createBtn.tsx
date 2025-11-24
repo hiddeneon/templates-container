@@ -3,7 +3,6 @@
 
 import { useActionState } from "react";
 import { insertTemplate } from "@/app/lib/actions";
-import LiquidGlass from 'liquid-glass-react'
 
 export default function AddBtn() {
     const [state, formAction] = useActionState(insertTemplate, null);
