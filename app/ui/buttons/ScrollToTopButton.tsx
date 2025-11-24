@@ -3,14 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-
-/* import all the icons in Free Solid, Free Regular, and Brands styles */
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-
-library.add(fas, far, fab);
+import { faAnglesUp } from '@fortawesome/free-solid-svg-icons';
 
 const ScrollToTopButton: React.FC = () => {
   const [visible, setVisible] = useState(false);
@@ -39,7 +32,7 @@ const ScrollToTopButton: React.FC = () => {
       aria-label="Scroll to top"
       onClick={scrollToTop}
     >
-      <FontAwesomeIcon icon="fa-solid fa-angles-up" />
+      <FontAwesomeIcon icon={faAnglesUp} />
     </button>
   );
 };
