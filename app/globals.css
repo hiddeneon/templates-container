@@ -36,6 +36,25 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  background: linear-gradient(
+    70deg,
+    #001e32,
+    #2c1900
+  );
+  background-size: 400% 400%;
+  animation: gradient-animation 5s ease infinite; 
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 body {
@@ -285,6 +304,7 @@ a {
   background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
   backdrop-filter: blur(10px); /* Frosted glass effect */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  z-index: 10;
 }
 
 .to-top-btn:hover {
