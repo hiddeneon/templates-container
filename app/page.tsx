@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <>
-      {/* <Aurora /> */}
+      <Aurora />
       <div className={styles.page}>
           <CreateFormToggle />
         <main className={styles.main}>
