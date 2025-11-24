@@ -4,6 +4,7 @@ import { fetchTemplates } from "./lib/data";
 import fallbackTemplates from "./data/templates";
 import CreateFormToggle from "./ui/create-form-toggle";
 import Aurora from "./ui/background/Aurora";
+import ScrollToTopButton from "./ui/buttons/ScrollToTopButton";
 
 // Force dynamic rendering - prevent static generation
 export const dynamic = 'force-dynamic';
@@ -21,12 +22,13 @@ export default async function Home() {
 
   return (
     <>
-      <Aurora />
+      {/* <Aurora /> */}
       <div className={styles.page}>
           <CreateFormToggle />
         <main className={styles.main}>
           <TemplatesWrapper initialTemplates={templates} />
         </main>
+        <ScrollToTopButton />
       </div>
     </>
   );

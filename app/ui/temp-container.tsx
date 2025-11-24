@@ -2,6 +2,15 @@
 
 import React, { useState } from "react";
 import  styled  from '@emotion/styled';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+/* import all the icons in Free Solid, Free Regular, and Brands styles */
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+
+library.add(fas, far, fab);
 
 import { Template } from "../data/types";
 
@@ -17,28 +26,32 @@ interface TempContainerProps {
 export default function TempContainer({ id, category, name, content, onDelete, onUpdate }: TempContainerProps) {
 
   const EditButton = styled.button<{ isEditing: boolean }>`
-  padding: 32px;
-  background-color: ${props => props.isEditing ? 'red' : 'hotpink'};
-  font-size: 24px;
-  border-radius: 4px;
-  color: black;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  padding: 1rem;
+  color: white;
+  font-size: 2rem;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
   &:hover {
-    color: white;
+    background-color: rgba(235, 200, 0, 0.4);
     cursor: pointer;
   }
 `
 const DeleteButton = styled.button`
-  padding: 32px;
-  background-color: red;
-  font-size: 24px;
-  border-radius: 4px;
-  color: black;
-  font-weight: bold;
+  padding: 1rem;
+  color: white;
+  font-size: 2rem;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  border-radius: 10px;
   transition: background-color 0.3s ease;
   &:hover {
-    color: white;
+    background-color: rgba(207, 18, 18, 0.4);
     cursor: pointer;
   }
 `
@@ -46,7 +59,7 @@ const DeleteButton = styled.button`
     const [text, setText] = useState(content);
     const [nameText, setNameText] = useState(name);
 
-    const [editBtn, setEditBtn] = useState('edit');
+    const [editBtn, setEditBtn] = useState(<FontAwesomeIcon icon="fa-solid fa-pen-to-square" />);
     const [isEditing, setIsEditing] = useState(false);
 
     const handleCopyClick = async () => {
@@ -105,13 +118,13 @@ const DeleteButton = styled.button`
         
         // Switch to readonly mode
         tempElem?.setAttribute('readOnly', 'true');
-        setEditBtn('edit');
+        setEditBtn(<FontAwesomeIcon icon="fa-solid fa-pen-to-square" />);
         setIsEditing(false);
         console.log(`readonly mode on ${tempElem?.hasAttribute('readOnly')}`);
       } else {
         // User clicked "edit" - enable editing
         tempElem?.removeAttribute('readOnly');
-        setEditBtn('done');
+        setEditBtn(<FontAwesomeIcon icon="fa-regular fa-square-check" />);
         setIsEditing(true);
         console.log(`editing mode on ${tempElem?.hasAttribute('readOnly')}`);
       }
@@ -171,12 +184,13 @@ const DeleteButton = styled.button`
             readOnly
           ></textarea>
           <section className="buttons-interface">
-            <DeleteButton onClick={deleteTemp}>delete</DeleteButton>
+            <DeleteButton onClick={deleteTemp}><FontAwesomeIcon icon="fa-regular fa-trash-can" /></DeleteButton>
             <EditButton className="edit-btn" id="edit-button" onClick={toggleEditor} isEditing={isEditing}>
               {editBtn}
             </EditButton>
           </section>
         </div>
+        
       </div>
     );
 }
