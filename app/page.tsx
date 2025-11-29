@@ -1,6 +1,7 @@
 
 
 // import Dashboard from "./dashboard/page";
+import { stringify } from "querystring";
 import Aurora from "./ui/background/Aurora";
 import ScrollToTopButton from "./ui/buttons/ScrollToTopButton";
 
@@ -8,11 +9,12 @@ import ScrollToTopButton from "./ui/buttons/ScrollToTopButton";
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Disable caching
 
-export default function Home() {
+export default async function Home() {
 
   return (
     <>
       <Aurora />
+      
       <ScrollToTopButton />
     </>
   );

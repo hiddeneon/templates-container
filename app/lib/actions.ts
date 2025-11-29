@@ -3,6 +3,7 @@
 import { Template } from '../data/types';
 import postgres from 'postgres';
 import { revalidatePath } from 'next/cache';
+import { currentUser } from "@clerk/nextjs/server";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -26,6 +27,8 @@ export async function insertTemplate(prevState: any, formData: FormData) {
         const name = formData.get('name') as string;
         const category = formData.get('category') as string || 'General';
         const content = formData.get('content') as string;
+        const user = await currentUser();
+        const userID = user.id;
 
         if (!name || !content) {
             return {
@@ -35,15 +38,15 @@ export async function insertTemplate(prevState: any, formData: FormData) {
         }
 
         const result = await sql<Template[]>`
-            INSERT INTO templates (name, category, content)
-            VALUES (${name}, ${category}, ${content})
-            RETURNING id, name, category, content
+            INSERT INTO templates (name, category, content, userID)
+            VALUES (${name}, ${category}, ${content}, ${userID})
+            RETURNING id, name, category, content, userID
         `;
         
         console.log('Template created successfully');
         
         // Revalidate the home page to create a template
-        revalidatePath('/');
+        revalidatePath('/dashboard');
         
         return {
             message: 'Template created successfully',

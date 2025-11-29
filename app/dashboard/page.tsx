@@ -4,8 +4,10 @@ import { fetchTemplates } from "../lib/data";
 import fallbackTemplates from "../data/templates";
 import CreateFormToggle from "../ui/create-form-toggle";
 import Aurora from "../ui/background/Aurora";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default async function Dashboard() {
+    const user = await currentUser();
 
   // Server-side data fetching with fallback
   let templates;
@@ -22,6 +24,7 @@ export default async function Dashboard() {
         <div className={styles.page}>
             <CreateFormToggle />
             <main className={styles.main}>
+              {/* {JSON.stringify(user)} */}
             <TemplatesWrapper initialTemplates={templates} />
             </main>
         </div>

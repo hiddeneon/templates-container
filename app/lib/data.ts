@@ -1,21 +1,30 @@
+
 import { Template } from '../data/types';
 import postgres from 'postgres';
+import { currentUser } from "@clerk/nextjs/server";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+
 
 export async function fetchTemplates(): Promise<Template[]> {
   try {
     console.log('Fetching templates data...');
-    
     // Check if database connection is available
     if (!process.env.POSTGRES_URL) {
       throw new Error('Database URL not configured');
     }
 
+    const { id } = await currentUser();
+
+      if (!id) {
+        return [];
+    }
+
     const data = await sql<Template[]>`
-      SELECT id, name, content, 
-             COALESCE(category, 'General') as category 
-      FROM templates 
+      SELECT id, name, content,
+             COALESCE(category, 'General') as category, userid
+      FROM templates
+      WHERE userid = ${id}
       ORDER BY id
     `;
 
@@ -36,6 +45,7 @@ export async function initializeDatabase() {
         name VARCHAR(255) NOT NULL,
         category VARCHAR(100) DEFAULT 'General',
         content TEXT NOT NULL,
+        userid VARCHAR(255) NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `;
