@@ -94,7 +94,7 @@ const DeleteButton = styled.button`
             
             if (result.success && result.template) {
               if (onUpdate) {
-                onUpdate({ ...result.template, userid });
+                onUpdate({ ...result.template, userid: userid ?? 'anonymous' });
               }
               console.log('Template updated successfully');
             } else {
