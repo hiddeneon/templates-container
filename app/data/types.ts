@@ -3,7 +3,7 @@ export type Template = {
     name: string;
     category: string;
     content: string;
-    userID: string,
+    userid: string,
 }
 
 export type Templates = Template[];
