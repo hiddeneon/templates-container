@@ -28,6 +28,15 @@ export async function insertTemplate(prevState: any, formData: FormData) {
         const category = formData.get('category') as string || 'General';
         const content = formData.get('content') as string;
         const user = await currentUser();
+
+        if (!user) {
+    // Handle unauthenticated user — choose one consistent with your app:
+    // Option A: throw to fail the action
+    throw new Error('Not authenticated');
+
+    // Option B: return an error result
+    // return { error: 'Not authenticated' };
+  }
         const userID = user.id;
 
         if (!name || !content) {
