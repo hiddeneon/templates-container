@@ -10,7 +10,7 @@ import { Template } from "../data/types";
 
 interface TempContainerProps {
   id: number;
-  userID?: string;
+  userid?: string;
   category: string;
   name: string;
   content: string;
@@ -18,7 +18,7 @@ interface TempContainerProps {
   onUpdate?: (template: Template) => void;
 }
 
-export default function TempContainer({ id, category, name, content, onDelete, onUpdate }: TempContainerProps) {
+export default function TempContainer({ id, userid, category, name, content, onDelete, onUpdate }: TempContainerProps) {
 
   const EditButton = styled.button<{ isEditing: boolean }>`
   padding: 1rem;
@@ -94,7 +94,7 @@ const DeleteButton = styled.button`
             
             if (result.success && result.template) {
               if (onUpdate) {
-                onUpdate({ ...result.template });
+                onUpdate({ ...result.template, userid });
               }
               console.log('Template updated successfully');
             } else {
