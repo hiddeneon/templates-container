@@ -1,14 +1,7 @@
-/* Always top right for CreateFormToggle */
-.create-form-toggle {
-  position: fixed;
-  top: 4vh;
-  left: 1vw;
-  z-index: 10;
-}
 
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: left;
 }
 
 /* Template box styles */
@@ -22,6 +15,11 @@
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
   padding: 12px 0;
+  width: 30vw;
+  height: 100%;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; */
 }
 
 :root {
@@ -77,23 +75,25 @@ a {
 }
 
 .text-container {
-  /* border: white 1px solid; */
   font-size: 30px;
+  /* box-sizing: content-box; */
+  width: 100%;
+  height: 30vh;
+  min-height: 300px;
+  /* border: yellow 1px solid; */
 }
 
 .temp-text-container {
+  inset: 0;
   transition: .25s;
-  width: min(90vw, 800px);
-  height: max(30vh, 200px);
-  min-height: 150px;
-  max-height: 60vh;
+  width: 100%;
+  height: 100%;
   padding: clamp(12px, 2vw, 24px);
   font-size: clamp(14px, 1.2vw, 18px);
   line-height: 1.5;
-  resize: both;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   box-sizing: border-box;
-  overflow: hidden; /* removes scrollbar from template textarea */
+  overflow: hidden;
   resize: none; /* removes resize tool */
   background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
   backdrop-filter: blur(10px); /* Frosted glass effect */
@@ -105,18 +105,46 @@ a {
   cursor: pointer;
   background-color: rgb(102, 123, 192, 0.2); /* Semi-transparent background */
   backdrop-filter: blur(10px); /* Frosted glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.5); /* Subtle border */
-  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  scrollbar-gutter: stable overlay;
+  overflow-y: auto;
+}
+
+.temp-text-container {
+  overflow-y: scroll;     /* always reserve space */
+}
+
+.temp-text-container::-webkit-scrollbar {
+  width: 8px;
+}
+.temp-text-container:hover::-webkit-scrollbar-thumb {
+  background: #888;
+}
+.temp-text-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.copied-conf {
+  width: 100%;
+  height: 100%;
+  border: red solid 1px;
+  z-index: 5;
+  background-color: #155724;
 }
 
 .create-form {
   display: flex;
   flex-direction: column;
   position: fixed;
+  z-index: 10;
+}
+.form-container {
+  position: absolute;
+  z-index: 10;
 }
 
 /* Mobile responsiveness */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .temp-text-container {
     width: 25vw;
     height: 40vh;
@@ -133,16 +161,16 @@ a {
     padding: 12px;
     border-radius: 6px;
   }
-}
+} */
 
 /* Large screens */
-@media (min-width: 1440px) {
+/* @media (min-width: 1440px) {
   .temp-text-container {
     max-width: 42vw;
     height: max(25vh, 250px);
     font-size: 18px;
   }
-}
+} */
 
 /* Create form styles */
 .create-form {
@@ -227,33 +255,43 @@ a {
   border: 1px solid #f5c6cb;
 }
 
-.toggle-form-btn {
-  font-size: 3rem;
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-  backdrop-filter: blur(10px); /* Frosted glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
-  padding: 10px;
-  height: 5rem;
-  width: 5rem;
+.nav-item {
+  font-size: 2rem;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 48px;
+  width: 48px;
   transition: .25s;
 }
 
-.toggle-form-btn:hover {
-  background-color: rgba(33, 227, 11, 0.5); /* Semi-transparent background */
+/* .toggle-form-btn {
+  font-size: 2rem;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 48px;
+  width: 48px;
+  transition: .25s;
+} */
+
+.nav-item:hover {
+  background-color: rgba(33, 227, 11, 0.5);
   backdrop-filter: blur(20px);
   cursor: pointer;
 }
 
 .title-temp-box {
-  /* background-color: #375153; */
-  min-height: 6rem;
+  height: 7rem;
   background-color: rgba(55, 81, 83, 0.5); /* Semi-transparent background */
   backdrop-filter: blur(20px); /* Frosted glass effect */
-  /* border: 1px solid rgba(255, 255, 255, 0.2); */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
-  /* border-radius: var(--border-radius) var(--border-radius) 0 0; */
   padding: 1rem 0;
   cursor: default;
   color: rgb(255, 255, 255, 0.7);
@@ -263,20 +301,39 @@ a {
   justify-content: center;
 }
 
-.template-name-input {
-  font-size: 32px;
+.template-name-input,
+.template-category-input {
+  font-family: var(--font-geist-sans);
+  text-align: center;
   width: fit-content;
   background-color: transparent;
-  border: solid 1px white;
-  border-radius: var(--border-radius);
+  border: solid 1px rgba(255, 255, 255, 0.44);
+  background: repeating-linear-gradient(
+  45deg,
+  rgba(0, 0, 0, 0.2),
+  rgba(0, 0, 0, 0.2) 10px,
+  rgba(0, 0, 0, 0.3) 10px,
+  rgba(0, 0, 0, 0.3) 20px
+),
 }
 
-.buttons-interface {
+.template-name-input {
+  font-size: 32px;
+  font-weight: 700;
+  border-radius: 5px;
+  width: 98%;
+}
+
+.template-category-input {
+  font-size: 16px;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.delete-btn-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
-  margin-top: 10px;
   /* border: yellow 1px solid; */
 }
 
@@ -305,4 +362,43 @@ a {
 .to-top-btn:hover {
   background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
   backdrop-filter: blur(20px); /* Frosted glass effect */
+}
+
+.side-nav-bar {
+  position: fixed;
+  top: 4vh;
+  left: 1vw;
+  /* z-index: 10; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 64px; /* w-16 */
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  border-radius: 0.5rem;
+  padding: 12px 0 0 0;
+}
+
+.nav-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.user-btn-wrapper {
+  margin-top: 10vh;
+  width: 100%;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 .5rem .5rem;
+}
+
+.user-btn-wrapper:hover {
+  cursor: default;
+  background-color: pink;
 }

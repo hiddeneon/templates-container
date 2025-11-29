@@ -14,9 +14,9 @@ export default function CreateFormToggle() {
   };
 
   return (
-    <div className="create-form-toggle">
+    <div>
       <button 
-        className="toggle-form-btn"
+        className='toggle-form-btn nav-item'
         onClick={toggleForm}
       >
         {isFormVisible
@@ -25,7 +25,7 @@ export default function CreateFormToggle() {
       </button>
       
       {isFormVisible && (
-        <div className="form-container">
+        <div className='form-container'>
           <CreateTempForm />
         </div>
       )}

@@ -1,13 +1,13 @@
 import styles from "../page.module.css";
 import TemplatesWrapper from "../ui/templates-wrapper";
 import { fetchTemplates } from "../lib/data";
+import ScrollToTopButton from "../ui/buttons/ScrollToTopButton";
 import fallbackTemplates from "../data/templates";
-import CreateFormToggle from "../ui/create-form-toggle";
 import Aurora from "../ui/background/Aurora";
-import { currentUser } from "@clerk/nextjs/server";
+import SideNav from "./sidenav";
 
 export default async function Dashboard() {
-    const user = await currentUser();
+    
 
   // Server-side data fetching with fallback
   let templates;
@@ -21,12 +21,13 @@ export default async function Dashboard() {
     return (
         <>
         <Aurora />
+        <SideNav />
         <div className={styles.page}>
-            <CreateFormToggle />
+          
             <main className={styles.main}>
-              {/* {JSON.stringify(user)} */}
             <TemplatesWrapper initialTemplates={templates} />
             </main>
+        <ScrollToTopButton />
         </div>
         </>
     )

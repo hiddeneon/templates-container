@@ -21,17 +21,20 @@ interface TempContainerProps {
 export default function TempContainer({ id, userid, category, name, content, onDelete, onUpdate }: TempContainerProps) {
 
   const EditButton = styled.button<{ isEditing: boolean }>`
-  padding: 1rem;
+  padding: .1rem;
   color: white;
-  font-size: 2rem;
+  font-size: 1.4rem;
   background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
   backdrop-filter: blur(10px); /* Frosted glass effect */
   border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
-  border-radius: 10px;
+  border-radius: 6px;
   transition: background-color 0.2s ease;
+  position: absolute;
+  bottom: 7px;
+  right: 7px;
   &:hover {
-    background-color: rgba(235, 200, 0, 0.4);
+    background-color: rgba(251, 255, 0, 0.4);
     cursor: pointer;
   }
 `
@@ -39,20 +42,22 @@ const DeleteButton = styled.button`
   padding: 1rem;
   color: white;
   font-size: 2rem;
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  /* background-color: rgba(255, 255, 255, 0.1);*/
+  background-color: rgba(207, 18, 18, 0.4);
   backdrop-filter: blur(10px); /* Frosted glass effect */
   border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
   border-radius: 10px;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: rgba(207, 18, 18, 0.4);
+    color: black;
     cursor: pointer;
   }
 `
 
     const [text, setText] = useState(content);
     const [nameText, setNameText] = useState(name);
+    const [nameCategory, setCategory] = useState(category);
 
     const [editBtn, setEditBtn] = useState(<FontAwesomeIcon icon={faPenToSquareSolid} />);
     const [isEditing, setIsEditing] = useState(false);
@@ -63,6 +68,7 @@ const DeleteButton = styled.button`
       if (tempElem?.hasAttribute('readOnly')) {
         try {
             await window.navigator.clipboard.writeText(text);
+
             console.log("Copied to clipboard!");
         } catch (err) {
             console.error(
@@ -83,13 +89,13 @@ const DeleteButton = styled.button`
 
       if (!tempElem?.hasAttribute('readOnly')) {
         // User clicked "done" - save changes
-        if (text !== content || nameText !== name) {
+        if (text !== content || nameText !== name || nameCategory !== category) {
           try {
             const { editTemplate } = await import('../lib/actions');
             const result = await editTemplate(id, {
               name: nameText,
               content: text,
-              category: 'General'
+              category: nameCategory
             });
             
             if (result.success && result.template) {
@@ -167,7 +173,20 @@ const DeleteButton = styled.button`
         ) : (
           <h1>{nameText}</h1>
         )}
-        <span>{category}</span>
+        {isEditing ? (
+          <input
+            type="text"
+            value={nameCategory}
+            onChange={(e) => setCategory(e.target.value)}
+            className="template-category-input"
+            placeholder="Template category"
+          />
+        ) : (
+          <span>{category}</span>
+        )}
+            <EditButton title='Редактировать' className="edit-btn" id="edit-button" onClick={toggleEditor} isEditing={isEditing}>
+              {editBtn}
+            </EditButton>
         </div>
         <div className="text-container">
           <textarea
@@ -178,14 +197,15 @@ const DeleteButton = styled.button`
             onClick={handleCopyClick}
             readOnly
           ></textarea>
-          <section className="buttons-interface">
-            <DeleteButton onClick={deleteTemp}><FontAwesomeIcon icon={faTrashCan} /></DeleteButton>
-            <EditButton className="edit-btn" id="edit-button" onClick={toggleEditor} isEditing={isEditing}>
-              {editBtn}
-            </EditButton>
-          </section>
         </div>
-        
+        {isEditing ? (
+        <section className="delete-btn-wrapper">
+            <DeleteButton title='TIP!' className='delete-btn' onClick={deleteTemp}><FontAwesomeIcon icon={faTrashCan} /></DeleteButton>
+          </section> ) : 
+          (
+            <></>
+          )
+        }
       </div>
     );
 }
