@@ -17,7 +17,7 @@ export const revalidate = 0; // Disable caching
 
 export default async function Home() {
   const user = await currentUser();
-  if (user.id) {
+  if (user?.id) {
     redirect("/dashboard");
   }
   return (

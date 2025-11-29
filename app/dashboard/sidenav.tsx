@@ -16,10 +16,10 @@ export default function SideNav() {
     return (
         <nav className='side-nav-bar'>
             <div className='nav-btns'>
-                <CreateFormToggle className='nav-item' />
-                <DecorBtn className='nav-item' />
+                <CreateFormToggle />
+                <DecorBtn />
             </div>
-            <span className='user-btn-wrapper'><UserButton className='nav-item' /></span>
+            <span className='user-btn-wrapper'><UserButton /></span>
         </nav>
     )
 }

@@ -184,7 +184,7 @@ const DeleteButton = styled.button`
         ) : (
           <span>{category}</span>
         )}
-            <EditButton title='Редактировать' className="edit-btn" id="edit-button" onClick={toggleEditor} isEditing={isEditing}>
+            <EditButton title='Редактировать' id="edit-button" onClick={toggleEditor} isEditing={isEditing}>
               {editBtn}
             </EditButton>
         </div>
@@ -200,7 +200,7 @@ const DeleteButton = styled.button`
         </div>
         {isEditing ? (
         <section className="delete-btn-wrapper">
-            <DeleteButton title='TIP!' className='delete-btn' onClick={deleteTemp}><FontAwesomeIcon icon={faTrashCan} /></DeleteButton>
+            <DeleteButton title='TIP!' onClick={deleteTemp}><FontAwesomeIcon icon={faTrashCan} /></DeleteButton>
           </section> ) : 
           (
             <></>
