@@ -14,11 +14,11 @@ export async function fetchTemplates(): Promise<Template[]> {
       throw new Error('Database URL not configured');
     }
 
-    const { id } = await currentUser();
-
-      if (!id) {
-        return [];
+    const user = await currentUser();
+    if (!user) {
+      return []; // or handle unauthenticated case appropriately
     }
+    const { id } = user;
 
     const data = await sql<Template[]>`
       SELECT id, name, content,
