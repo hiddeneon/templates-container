@@ -5,6 +5,7 @@ import { useState } from "react";
 import TempContainer from "./temp-container";
 import { Template } from "../data/types";
 import { Tooltip } from "radix-ui";
+import CreateFormEmpty from './create-form-from-empty';
 
 interface TemplatesWrapperProps {
   initialTemplates: Template[];
@@ -87,7 +88,13 @@ export default function TemplatesWrapper({ initialTemplates }: TemplatesWrapperP
         </div>
       {/* Templates List */}
       <div className="temp-wrapper">
-        {filteredTemplates.map((temp) => (
+        {filteredTemplates.length === 0 ? (
+        <div className="empty-state">
+          <CreateFormEmpty />
+          
+        </div>
+      ) : (
+        filteredTemplates.map((temp) => (
           <TempContainer 
             key={temp.id}
             id={temp.id}
@@ -97,7 +104,7 @@ export default function TemplatesWrapper({ initialTemplates }: TemplatesWrapperP
             onDelete={handleDeleteTemplate}
             onUpdate={handleUpdateTemplate}
           />
-        ))}
+        )))}
       </div>
     </div>
   );
