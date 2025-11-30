@@ -1,8 +1,10 @@
 'use client'
 
+import React from "react";
 import { useState } from "react";
 import TempContainer from "./temp-container";
 import { Template } from "../data/types";
+import { Tooltip } from "radix-ui";
 
 interface TemplatesWrapperProps {
   initialTemplates: Template[];
@@ -10,6 +12,12 @@ interface TemplatesWrapperProps {
 
 export default function TemplatesWrapper({ initialTemplates }: TemplatesWrapperProps) {
   const [templates, setTemplates] = useState<Template[]>(initialTemplates);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  // Extract unique categories from templates
+  const categories = Array.from(
+    new Set(templates.map(template => template.category))
+  );
 
   const handleDeleteTemplate = (id: number) => {
     setTemplates(prevTemplates => prevTemplates.filter(template => template.id !== id));
@@ -23,20 +31,74 @@ export default function TemplatesWrapper({ initialTemplates }: TemplatesWrapperP
     );
   };
 
+  // Filter templates by selected category
+  const filteredTemplates = selectedCategory
+    ? templates.filter(template => template.category === selectedCategory)
+    : templates;
+
   return (
-    <div className="temp-wrapper">
-      {templates.map((temp) => (
-        <TempContainer 
-          key={temp.id}
-          id={temp.id}
-          category={temp.category}
-          content={temp.content} 
-          name={temp.name}
-          onDelete={handleDeleteTemplate}
-          onUpdate={handleUpdateTemplate}
-        />
-      ))}
+    <div>
+      {/* Category Panel */}
+      <div className='cat-panel-wrapper'>
+      <div className='cat-panel'>
+        <Tooltip.Provider>
+			<Tooltip.Root>
+				<Tooltip.Trigger asChild>
+					<button
+          key="all"
+          onClick={() => setSelectedCategory(null)}
+          style={{ fontWeight: selectedCategory === null ? 'bold' : 'normal' }}
+        >
+          Все
+        </button>
+				</Tooltip.Trigger>
+				<Tooltip.Portal>
+					<Tooltip.Content className="TooltipContent" sideOffset={5} side="bottom">
+						Выбрать категорию
+						<Tooltip.Arrow className="TooltipArrow" />
+					</Tooltip.Content>
+				</Tooltip.Portal>
+			</Tooltip.Root>
+		</Tooltip.Provider>
+        
+        {categories.map(cat => (
+  <React.Fragment key={cat}>
+    <Tooltip.Provider>
+      <Tooltip.Root>
+        <Tooltip.Trigger asChild>
+          <button
+            onClick={() => setSelectedCategory(cat)}
+            style={{ fontWeight: selectedCategory === cat ? 'bold' : 'normal' }}
+          >
+            {cat.charAt(0).toUpperCase() + cat.slice(1)}
+          </button>
+        </Tooltip.Trigger>
+				<Tooltip.Portal>
+					<Tooltip.Content className="TooltipContent" sideOffset={5} side="bottom">
+						Выбрать категорию
+						<Tooltip.Arrow className="TooltipArrow" />
+					</Tooltip.Content>
+				</Tooltip.Portal>
+			</Tooltip.Root>
+    </Tooltip.Provider>
+  </React.Fragment>
+))}
+      </div>
+        </div>
+      {/* Templates List */}
+      <div className="temp-wrapper">
+        {filteredTemplates.map((temp) => (
+          <TempContainer 
+            key={temp.id}
+            id={temp.id}
+            category={temp.category}
+            content={temp.content} 
+            name={temp.name}
+            onDelete={handleDeleteTemplate}
+            onUpdate={handleUpdateTemplate}
+          />
+        ))}
+      </div>
     </div>
-    
   );
 }
