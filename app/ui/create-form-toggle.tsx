@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import CreateTempForm from './create-temp-interface';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 
 export default function CreateFormToggle() {
@@ -21,7 +21,7 @@ export default function CreateFormToggle() {
       >
         {isFormVisible
           ? <FontAwesomeIcon icon={faCircleXmark} />
-          : <FontAwesomeIcon icon={faSquarePlus} />}
+          : <FontAwesomeIcon icon={faPlus} />}
       </button>
       
       {isFormVisible && (

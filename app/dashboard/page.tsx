@@ -5,7 +5,7 @@ import ScrollToTopButton from "../ui/buttons/ScrollToTopButton";
 import fallbackTemplates from "../data/templates";
 import Aurora from "../ui/background/Aurora";
 import SideNav from "./sidenav";
-
+import Toast from "../ui/buttons/Toast";
 export default async function Dashboard() {
     
 
@@ -20,7 +20,8 @@ export default async function Dashboard() {
 
     return (
         <>
-        <Aurora />
+        {/* <Aurora /> */}
+        <Toast />
         <SideNav />
         <div className={styles.page}>
           

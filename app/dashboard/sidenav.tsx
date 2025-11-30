@@ -18,6 +18,7 @@ export default function SideNav() {
             <div className='nav-btns'>
                 <CreateFormToggle />
                 <DecorBtn />
+                
             </div>
             <span className='user-btn-wrapper'><UserButton /></span>
         </nav>

@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import  styled  from '@emotion/styled';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPenToSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 import { faPenToSquare as faPenToSquareSolid } from '@fortawesome/free-solid-svg-icons';
-
+import Toast from "../ui/buttons/Toast";
 import { Template } from "../data/types";
+import toast from "react-hot-toast";
 
 interface TempContainerProps {
   id: number;
@@ -20,22 +21,26 @@ interface TempContainerProps {
 
 export default function TempContainer({ id, userid, category, name, content, onDelete, onUpdate }: TempContainerProps) {
 
-  const EditButton = styled.button<{ isEditing: boolean }>`
+  let EditButton = styled.button<{ isEditing: boolean }>`
   padding: .1rem;
   color: white;
   font-size: 1.4rem;
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-  backdrop-filter: blur(10px); /* Frosted glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  background-color: rgba(70, 70, 70, 0.52); 
+  backdrop-filter: blur(10px); 
+  border: none; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   border-radius: 6px;
   transition: background-color 0.2s ease;
   position: absolute;
   bottom: 7px;
   right: 7px;
   &:hover {
-    background-color: rgba(251, 255, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.46);
     cursor: pointer;
+  };
+  &:active {
+    background-color: white;
+    color: black;
   }
 `
 const DeleteButton = styled.button`
@@ -45,7 +50,7 @@ const DeleteButton = styled.button`
   /* background-color: rgba(255, 255, 255, 0.1);*/
   background-color: rgba(207, 18, 18, 0.4);
   backdrop-filter: blur(10px); /* Frosted glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  border: none; /* Subtle border */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
   border-radius: 10px;
   transition: background-color 0.3s ease;
@@ -68,7 +73,7 @@ const DeleteButton = styled.button`
       if (tempElem?.hasAttribute('readOnly')) {
         try {
             await window.navigator.clipboard.writeText(text);
-
+            toast("Скопировано в буфер обмена!");
             console.log("Copied to clipboard!");
         } catch (err) {
             console.error(
@@ -108,12 +113,14 @@ const DeleteButton = styled.button`
               // Revert changes if update failed
               setText(content);
               setNameText(name);
+              setCategory(category);
             }
           } catch (error) {
             console.error('Error updating template:', error);
             // Revert changes if update failed
             setText(content);
             setNameText(name);
+            setCategory(category);
           }
         }
         
