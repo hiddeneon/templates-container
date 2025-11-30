@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import  styled  from '@emotion/styled';
+import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPenToSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 import { faPenToSquare as faPenToSquareSolid } from '@fortawesome/free-solid-svg-icons';
@@ -63,6 +64,7 @@ const DeleteButton = styled.button`
     const [text, setText] = useState(content);
     const [nameText, setNameText] = useState(name);
     const [nameCategory, setCategory] = useState(category);
+    const router = useRouter();
 
     const [editBtn, setEditBtn] = useState(<FontAwesomeIcon icon={faPenToSquareSolid} />);
     const [isEditing, setIsEditing] = useState(false);

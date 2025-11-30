@@ -17,7 +17,7 @@ export default function SideNav() {
 				</Tooltip.Trigger>
 				<Tooltip.Portal>
 					<Tooltip.Content className="TooltipContent" sideOffset={5} side="right">
-						Оформление
+						Оформление (скоро...)
 						<Tooltip.Arrow className="TooltipArrow" />
 					</Tooltip.Content>
 				</Tooltip.Portal>

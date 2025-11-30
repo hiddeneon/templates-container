@@ -1,11 +1,32 @@
+import React, { useState } from "react";
 import AddBtn from "./buttons/createBtn";
-
+import { insertTemplate } from "@/app/lib/actions"; 
 
 export default function CreateTempForm() {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+
+    // Call your API to save the template
+    const result = await insertTemplate(null, formData);
+
+    setLoading(false);
+
+    if (result.success) {
+      window.location.reload();
+    } else {
+      // Show error message if needed
+      alert("Ошибка при сохранении шаблона!");
+    }
+  };
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <fieldset className="create-form">
                     <label htmlFor="name">Название:</label>
                     <input 
@@ -42,7 +63,7 @@ export default function CreateTempForm() {
                         required
                     ></textarea>
                     
-                    <AddBtn />
+                    <AddBtn loading={loading} />
                 </fieldset>
             </form>
         </div>
