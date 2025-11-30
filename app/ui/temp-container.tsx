@@ -5,9 +5,9 @@ import  styled  from '@emotion/styled';
 import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPenToSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 import { faPenToSquare as faPenToSquareSolid } from '@fortawesome/free-solid-svg-icons';
-import Toast from "../ui/buttons/Toast";
 import { Template } from "../data/types";
 import toast from "react-hot-toast";
+import { Tooltip } from "radix-ui";
 
 interface TempContainerProps {
   id: number;
@@ -73,7 +73,7 @@ const DeleteButton = styled.button`
       if (tempElem?.hasAttribute('readOnly')) {
         try {
             await window.navigator.clipboard.writeText(text);
-            toast("Скопировано в буфер обмена!");
+            toast("✅ Скопировано в буфер обмена!");
             console.log("Copied to clipboard!");
         } catch (err) {
             console.error(
@@ -178,7 +178,7 @@ const DeleteButton = styled.button`
             placeholder="Template name"
           />
         ) : (
-          <h1>{nameText}</h1>
+          <h2>{nameText}</h2>
         )}
         {isEditing ? (
           <input
@@ -191,9 +191,21 @@ const DeleteButton = styled.button`
         ) : (
           <span>{category}</span>
         )}
-            <EditButton title='Редактировать' id="edit-button" onClick={toggleEditor} isEditing={isEditing}>
+            		<Tooltip.Provider>
+			<Tooltip.Root>
+				<Tooltip.Trigger asChild>
+					<EditButton id="edit-button" onClick={toggleEditor} isEditing={isEditing}>
               {editBtn}
             </EditButton>
+				</Tooltip.Trigger>
+				<Tooltip.Portal>
+					<Tooltip.Content className="TooltipContent" sideOffset={5}>
+						Редактировать
+						<Tooltip.Arrow className="TooltipArrow" />
+					</Tooltip.Content>
+				</Tooltip.Portal>
+			</Tooltip.Root>
+		</Tooltip.Provider>
         </div>
         <div className="text-container">
           <textarea
@@ -207,7 +219,20 @@ const DeleteButton = styled.button`
         </div>
         {isEditing ? (
         <section className="delete-btn-wrapper">
-            <DeleteButton title='TIP!' onClick={deleteTemp}><FontAwesomeIcon icon={faTrashCan} /></DeleteButton>
+            		<Tooltip.Provider>
+			<Tooltip.Root>
+				<Tooltip.Trigger asChild>
+					<DeleteButton onClick={deleteTemp}><FontAwesomeIcon icon={faTrashCan} /></DeleteButton>
+				</Tooltip.Trigger>
+				<Tooltip.Portal>
+					<Tooltip.Content className="TooltipContent" sideOffset={5} side="bottom">
+						Удалить
+						<Tooltip.Arrow className="TooltipArrow" />
+					</Tooltip.Content>
+				</Tooltip.Portal>
+			</Tooltip.Root>
+		</Tooltip.Provider>
+
           </section> ) : 
           (
             <></>

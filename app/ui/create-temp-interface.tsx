@@ -7,29 +7,37 @@ export default function CreateTempForm() {
         <div>
             <form>
                 <fieldset className="create-form">
-                    <label htmlFor="name">Title:</label>
+                    <label htmlFor="name">Название:</label>
                     <input 
                         type="text" 
                         id="name"
                         name="name"
-                        placeholder="Enter template title"
+                        placeholder="Введите название шаблона"
                         required
                     />
 
-                    <label htmlFor="category">Categories:</label>
-                    <select id="category" name="category" defaultValue="General">
-                        <option value="General">Общие</option>
-                        <option value="gos">Государственные</option>
-                        <option value="credits">Кредиты</option>
-                        <option value="products">Продукты</option>
-                        <option value="misc">Разное</option>
-                    </select>
+                    <label htmlFor="category">Категория:</label>
+                    <input
+  list="category-list"
+  id="category"
+  name="category"
+  defaultValue="Разное"
+  placeholder="Выберите или введите категорию"
+  required
+/>
+<datalist id="category-list">
+  <option value="Общее">Общие</option>
+  <option value="Законы">Законы</option>
+  <option value="Кредиты">Кредиты</option>
+  <option value="Продукты">Продукты</option>
+  <option value="Разное">Разное</option>
+</datalist>
 
-                    <label htmlFor="content">Template:</label>
+                    <label htmlFor="content">Текст:</label>
                     <textarea 
                         id="content"
                         name="content"
-                        placeholder="Enter text here"
+                        placeholder="Введите текст шаблона"
                         rows={6}
                         required
                     ></textarea>

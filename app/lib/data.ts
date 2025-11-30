@@ -25,7 +25,7 @@ export async function fetchTemplates(): Promise<Template[]> {
              COALESCE(category, 'General') as category, userid
       FROM templates
       WHERE userid = ${id}
-      ORDER BY id
+      ORDER BY name
     `;
 
     console.log('Data fetch completed.');

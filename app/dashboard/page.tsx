@@ -6,8 +6,8 @@ import fallbackTemplates from "../data/templates";
 import Aurora from "../ui/background/Aurora";
 import SideNav from "./sidenav";
 import Toast from "../ui/buttons/Toast";
+
 export default async function Dashboard() {
-    
 
   // Server-side data fetching with fallback
   let templates;
@@ -26,7 +26,9 @@ export default async function Dashboard() {
         <div className={styles.page}>
           
             <main className={styles.main}>
-            <TemplatesWrapper initialTemplates={templates} />
+            <div className="temp-wrapper-layout">
+              <TemplatesWrapper initialTemplates={templates} />
+            </div>
             </main>
         <ScrollToTopButton />
         </div>

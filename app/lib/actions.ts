@@ -56,9 +56,8 @@ export async function insertTemplate(prevState: any, formData: FormData) {
         
         // Revalidate the home page to create a template
         revalidatePath('/dashboard');
-        
         return {
-            message: 'Template created successfully',
+            message: 'Сохранено!',
             success: true,
             template: result[0]
         };
