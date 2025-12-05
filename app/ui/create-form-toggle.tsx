@@ -4,7 +4,6 @@ import { useState } from 'react';
 import CreateTempForm from './create-temp-interface';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { Dialog, Tooltip } from "radix-ui";
 
 export default function CreateFormToggle() {

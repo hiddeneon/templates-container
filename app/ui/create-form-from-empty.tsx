@@ -19,7 +19,7 @@ export default function CreateFormEmpty() {
                 <button 
         className='create-form-btn-empty'
         onClick={toggleForm}
-      >Создать первый шаблон</button>
+      >Создать шаблон</button>
       </Dialog.Trigger>			
 		
 		<Dialog.Portal>

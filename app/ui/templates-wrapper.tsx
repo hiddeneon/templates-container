@@ -48,7 +48,9 @@ export default function TemplatesWrapper({ initialTemplates }: TemplatesWrapperP
 					<button
           key="all"
           onClick={() => setSelectedCategory(null)}
-          style={{ fontWeight: selectedCategory === null ? 'bold' : 'normal' }}
+          style={{ backgroundColor: selectedCategory === null ? 'rgba(100, 100, 100, 0.7)': 'transparent',
+                     boxShadow: selectedCategory === null ? '0 0 4px -2px white' : 'none',
+                     /* borderRadius: selectedCategory === null ? '6px': 'none',*/ }}
         >
           Все
         </button>
@@ -69,7 +71,11 @@ export default function TemplatesWrapper({ initialTemplates }: TemplatesWrapperP
         <Tooltip.Trigger asChild>
           <button
             onClick={() => setSelectedCategory(cat)}
-            style={{ fontWeight: selectedCategory === cat ? 'bold' : 'normal' }}
+            style={ { 
+                     backgroundColor: selectedCategory === cat ? 'rgba(100, 100, 100, 0.5)': 'transparent',
+                     
+                      color: selectedCategory === cat ? 'white': 'rgba(255, 255, 255, 0.8)'
+             }}
           >
             {cat.charAt(0).toUpperCase() + cat.slice(1)}
           </button>
