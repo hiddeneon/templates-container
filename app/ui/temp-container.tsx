@@ -75,7 +75,7 @@ const DeleteButton = styled.button`
       if (tempElem?.hasAttribute('readOnly')) {
         try {
             await window.navigator.clipboard.writeText(text);
-            toast("✅ Скопировано в буфер обмена!");
+            toast("✓ Скопировано в буфер обмена!");
             console.log("Copied to clipboard!");
         } catch (err) {
             console.error(

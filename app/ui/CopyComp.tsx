@@ -20,19 +20,26 @@ export default function CopyComp() {
     <>
       <div className='copy-elements-wrapper'>
         <button onClick={handleCopy('🔗')} className='sidebar-copy-element'>🔗</button>
+        <button onClick={handleCopy('💳')} className='sidebar-copy-element'>💳</button>
+        <button onClick={handleCopy('🏛️')} className='sidebar-copy-element'>🏛️</button>
+        <button onClick={handleCopy('💶')} className='sidebar-copy-element'>💶</button>
         <button onClick={handleCopy('🗓️')} className='sidebar-copy-element'>🗓️</button>
         <button onClick={handleCopy('⚙️')} className='sidebar-copy-element'>⚙️</button>
+        <button onClick={handleCopy('👆')} className='sidebar-copy-element'>👆</button>
+        <button onClick={handleCopy('👇')} className='sidebar-copy-element'>👇</button>
+        <button onClick={handleCopy('≫')} className='sidebar-copy-element'>≫</button>
         <button onClick={handleCopy('➜')} className='sidebar-copy-element'>➜</button>
+        <button onClick={handleCopy('»')} className='sidebar-copy-element'>»</button>
         <button onClick={handleCopy('⌞⌝')} className='sidebar-copy-element'>⌞⌝</button>
         <button onClick={handleCopy('ℹ️')} className='sidebar-copy-element'>ℹ️</button>
         <button onClick={handleCopy('☑️')} className='sidebar-copy-element'>☑️</button>
         <button onClick={handleCopy('📃')} className='sidebar-copy-element'>📃</button>
         <button onClick={handleCopy('📎')} className='sidebar-copy-element'>📎</button>
         <button onClick={handleCopy('⚠️')} className='sidebar-copy-element'>⚠️</button>
-        <button onClick={handleCopy('📎')} className='sidebar-copy-element'>📱</button>
-        <button onClick={handleCopy('📎')} className='sidebar-copy-element'>💻</button>
-        <button onClick={handleCopy('📎')} className='sidebar-copy-element'>📞</button>
-        <button onClick={handleCopy('📎')} className='sidebar-copy-element'>📧</button>
+        <button onClick={handleCopy('📱')} className='sidebar-copy-element'>📱</button>
+        <button onClick={handleCopy('💻')} className='sidebar-copy-element'>💻</button>
+        <button onClick={handleCopy('📞')} className='sidebar-copy-element'>📞</button>
+        <button onClick={handleCopy('📧')} className='sidebar-copy-element'>📧</button>
       </div>
       <p>Copied value: {copiedText ?? 'Nothing is copied yet!'}</p>
     </>

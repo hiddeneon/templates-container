@@ -21,7 +21,7 @@ export default async function Dashboard() {
 
     return (
         <>
-        <Aurora />
+        {/* <Aurora /> */}
         <Toast />
         <SideNav />
         <SideCopyBar />

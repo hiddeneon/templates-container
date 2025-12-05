@@ -55,8 +55,8 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  /* background: radial-gradient(125% 125% at 50% 90%, #000000 40%, #0d1a36 100%);
-  background-size: 400% 400%; */
+  background: radial-gradient(125% 125% at 50% 90%, #000000 40%, #0d1a36 100%);
+  background-size: 400% 400%;
 }
 
 body {
@@ -745,7 +745,12 @@ input {
   border-radius: 10px;
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   text-align: center;
-  transition: 0.4s;
+  transition: 0.25s;
+}
+
+.cat-panel button:hover {
+  background-color: rgba(100, 100, 100, 0.7) !important;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 a {
