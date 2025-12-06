@@ -25,7 +25,7 @@ export default function AddBtn({ loading }: { loading: boolean }) {
                                                 aria-live="polite"
                                                 aria-label="Загрузка"
                                             ></span>
-                                        ) : "+ Создать"}
+                                        ) : "+ Добавить"}
                                 </button>
                 {loading && <div className="loading-message">Сохраняем шаблон... 🔃Страница перезагрузится</div>}
                 {/* {state?.message && (

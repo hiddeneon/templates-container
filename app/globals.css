@@ -254,19 +254,26 @@ a {
 }
 
 .add-btn {
-  background-color: #4CAF50;
-  color: white;
+  /* background-color: #4CAF50; */
+  color: rgba(255, 255, 255, 0.5);
   padding: 12px 24px;
-  border: none;
-  border-radius: 6px;
+  /* border: none; */
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border: solid 2px #4CAF50;
+  border-radius: 3px;
+  color: #fff;
+  background-image: -webkit-linear-gradient(45deg, #4CAF50 50%, transparent 50%);
+  background-image: linear-gradient(45deg, #4CAF50 50%, transparent 50%);
+  background-position: 100%;
+  background-size: 400%;
+  -webkit-transition: background 300ms ease-in-out;
+  transition: background 300ms ease-in-out;
 }
 
 .add-btn:hover {
-  background-color: #45a049;
+  background-position: 0;
 }
 
 .add-btn:disabled {
@@ -440,7 +447,7 @@ a {
   position: fixed;
   top: 4vh;
   left: 1vw;
-  z-index: 10;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -598,6 +605,7 @@ input {
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(4px);
 	animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 4;
 }
 
 .DialogContent {
@@ -611,6 +619,7 @@ input {
   backdrop-filter: blur(10px);
 	width: 40vw;
 	max-height: 85vh;
+  z-index: 5;
 	/* padding: 25px; */
 	animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -707,7 +716,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: 3;
 }
 
 .cat-panel {
@@ -832,7 +841,7 @@ a:hover {
   position: fixed;
   bottom: 10vh;
   left: 1vw;
-  z-index: 10;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;

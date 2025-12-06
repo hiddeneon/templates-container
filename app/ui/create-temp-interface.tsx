@@ -47,7 +47,7 @@ export default function CreateTempForm() {
   required
 />
 <datalist id="category-list">
-  <option value="Общее">Общие</option>
+  <option value="Общее">Общее</option>
   <option value="Законы">Законы</option>
   <option value="Кредиты">Кредиты</option>
   <option value="Продукты">Продукты</option>
