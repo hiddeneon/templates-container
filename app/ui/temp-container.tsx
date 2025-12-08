@@ -28,7 +28,9 @@ export default function TempContainer({ id, userid, category, name, content, onD
   font-size: 1.4rem;
   background-color: white; 
   backdrop-filter: blur(10px); 
-  border: none; 
+  border: none;
+  height: fit-content;
+  width: fit-content;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   border-radius: 3px;
   transition: background-color 0.2s ease;
