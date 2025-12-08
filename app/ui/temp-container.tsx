@@ -24,19 +24,19 @@ export default function TempContainer({ id, userid, category, name, content, onD
 
   let EditButton = styled.button<{ isEditing: boolean }>`
   padding: .1rem;
-  color: white;
+  color: black;
   font-size: 1.4rem;
-  background-color: rgba(70, 70, 70, 0.52); 
+  background-color: white; 
   backdrop-filter: blur(10px); 
   border: none; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  border-radius: 6px;
+  border-radius: 3px;
   transition: background-color 0.2s ease;
   position: absolute;
   bottom: 7px;
   right: 7px;
   &:hover {
-    background-color: rgba(255, 255, 255, 0.46);
+    background-color: rgba(255, 255, 255, 0.8);
     cursor: pointer;
   };
   &:active {

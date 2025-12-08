@@ -1,11 +1,11 @@
 import CopyComp from "../CopyComp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 
 export default function SideCopyBar() {
     return (
         <div className='side-copy-bar'>
-            <h1><FontAwesomeIcon icon={faAnglesDown} /></h1>
+            <span><FontAwesomeIcon icon={faSquarePlus} /><p>Добавить символы</p></span>
             <div className='outside-frame-sidebar-wrapper'>
                 <CopyComp />
             </div>

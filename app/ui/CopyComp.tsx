@@ -41,7 +41,6 @@ export default function CopyComp() {
         <button onClick={handleCopy('📞')} className='sidebar-copy-element'>📞</button>
         <button onClick={handleCopy('📧')} className='sidebar-copy-element'>📧</button>
       </div>
-      <p>Copied value: {copiedText ?? 'Nothing is copied yet!'}</p>
     </>
   )
 }
