@@ -4,6 +4,12 @@ export type Template = {
     category: string;
     content: string;
     userid: string,
-}
+};
+
+export type Symbol = {
+    id: number;
+    symbol: string;
+    created_at: string;
+};
 
 export type Templates = Template[];

@@ -1,9 +1,15 @@
 'use client';
 
 import { Direction } from 'radix-ui';
-import { useCopyToClipboard } from 'usehooks-ts'
+import { useCopyToClipboard } from 'usehooks-ts';
+import { Symbol } from '../data/types';
 
-export default function CopyComp() {
+interface SymbolsWrapperProps {
+  symbols: Symbol[];
+}
+
+
+export default function CopyComp({ symbols }: SymbolsWrapperProps) {
   const [copiedText, copy] = useCopyToClipboard()
 
   const handleCopy = (text: string) => () => {
@@ -19,27 +25,7 @@ export default function CopyComp() {
   return (
     <>
       <div className='copy-elements-wrapper'>
-        <button onClick={handleCopy('🔗')} className='sidebar-copy-element'>🔗</button>
-        <button onClick={handleCopy('💳')} className='sidebar-copy-element'>💳</button>
-        <button onClick={handleCopy('🏛️')} className='sidebar-copy-element'>🏛️</button>
-        <button onClick={handleCopy('💶')} className='sidebar-copy-element'>💶</button>
-        <button onClick={handleCopy('🗓️')} className='sidebar-copy-element'>🗓️</button>
-        <button onClick={handleCopy('⚙️')} className='sidebar-copy-element'>⚙️</button>
-        <button onClick={handleCopy('👆')} className='sidebar-copy-element'>👆</button>
-        <button onClick={handleCopy('👇')} className='sidebar-copy-element'>👇</button>
-        <button onClick={handleCopy('≫')} className='sidebar-copy-element'>≫</button>
-        <button onClick={handleCopy('➜')} className='sidebar-copy-element'>➜</button>
-        <button onClick={handleCopy('»')} className='sidebar-copy-element'>»</button>
-        <button onClick={handleCopy('⌞⌝')} className='sidebar-copy-element'>⌞⌝</button>
-        <button onClick={handleCopy('ℹ️')} className='sidebar-copy-element'>ℹ️</button>
-        <button onClick={handleCopy('☑️')} className='sidebar-copy-element'>☑️</button>
-        <button onClick={handleCopy('📃')} className='sidebar-copy-element'>📃</button>
-        <button onClick={handleCopy('📎')} className='sidebar-copy-element'>📎</button>
-        <button onClick={handleCopy('⚠️')} className='sidebar-copy-element'>⚠️</button>
-        <button onClick={handleCopy('📱')} className='sidebar-copy-element'>📱</button>
-        <button onClick={handleCopy('💻')} className='sidebar-copy-element'>💻</button>
-        <button onClick={handleCopy('📞')} className='sidebar-copy-element'>📞</button>
-        <button onClick={handleCopy('📧')} className='sidebar-copy-element'>📧</button>
+        {symbols.map((el) => <button key={el.id} onClick={handleCopy(el.symbol)} className='sidebar-copy-element'>{el.symbol}</button>)}
       </div>
     </>
   )

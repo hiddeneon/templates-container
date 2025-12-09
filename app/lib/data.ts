@@ -1,7 +1,10 @@
 
-import { Template } from '../data/types';
+'use server';
+
+import { Template, Symbol } from '../data/types';
 import postgres from 'postgres';
 import { currentUser } from "@clerk/nextjs/server";
+
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -104,3 +107,89 @@ export async function insertTemplate(prevState: any, formData: FormData) {
         };
     }
 }
+
+// handling symbols
+
+export async function fetchSymbols() {
+  try {
+    console.log('Fetching symbols...');
+    // Check if database connection is available
+    if (!process.env.POSTGRES_URL) {
+      throw new Error('Database URL not configured');
+    }
+
+    const user = await currentUser();
+    if (!user) {
+      return []; // or handle unauthenticated case appropriately
+    }
+    const { id } = user;
+
+    const data = await sql`
+      SELECT id, symbol, created_at
+      FROM user_symbols
+      WHERE userid = ${id}
+      ORDER BY created_at DESC;
+    `;
+
+    console.log('Data fetch completed.');
+    return data;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch symbols data.');
+  }
+}
+
+export async function insertSymbol(prevState: any, formData: FormData) {
+    try {
+      // Check if database connection is available
+      if (!process.env.POSTGRES_URL) {
+        console.warn('Database URL not configured, skipping database insertion');
+        return {
+          message: 'Symbol created (fallback mode - no database)',
+          success: true,
+          symbolItem: {
+            id: Date.now(),
+            symbol: formData.get('symbol-input') as string || 'New symbol',
+            created_at: new Date().toISOString(),
+          }
+        };
+      }
+
+      const symbol = formData.get('symbol-input') as string;
+      if (!symbol) {
+        return {
+          message: 'Symbol is required',
+          success: false
+        };
+      }
+
+      // Get current user
+      const user = await currentUser();
+      if (!user) {
+        return {
+          message: 'User not authenticated',
+          success: false
+        };
+      }
+      const { id: userid } = user;
+
+      const result = await sql<Symbol[]>`
+        INSERT INTO user_symbols (symbol, userid, created_at)
+        VALUES (${symbol}, ${userid}, NOW())
+        RETURNING id, symbol, created_at
+      `;
+
+      console.log('Symbol inserted successfully');
+      return {
+        message: 'Symbol created successfully',
+        success: true,
+        symbolItem: result[0]
+      };
+    } catch (error) {
+      console.error('Failed to insert symbol to the db', error);
+      return {
+        message: 'Failed to create symbol',
+        success: false
+      };
+    }
+  }

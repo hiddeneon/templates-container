@@ -1,8 +1,9 @@
 import styles from "../page.module.css";
 import TemplatesWrapper from "../ui/templates-wrapper";
-import { fetchTemplates } from "../lib/data";
+import { fetchTemplates, fetchSymbols } from "../lib/data";
 import ScrollToTopButton from "../ui/buttons/ScrollToTopButton";
 import fallbackTemplates from "../data/templates";
+import fallbackSymbols from "../data/symbols";
 import Aurora from "../ui/background/Aurora";
 import SideNav from "./sidenav";
 import Toast from "../ui/buttons/Toast";
@@ -19,12 +20,20 @@ export default async function Dashboard() {
     templates = fallbackTemplates;
   }
 
+  let symbols;
+  try {
+    symbols = await fetchSymbols();
+  } catch (error) {
+    console.warn('Failed to fetch from database, using fallback symbols:', error);
+    symbols = fallbackSymbols;
+  }
+
     return (
         <>
         {/* <Aurora /> */}
         <Toast />
         <SideNav />
-        <SideCopyBar />
+        <SideCopyBar initialSymbols={symbols as any} />
         <div className={styles.page}>
           
             <main className={styles.main}>
